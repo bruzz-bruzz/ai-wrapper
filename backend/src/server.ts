@@ -3,6 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import dotenv from 'dotenv'
+import axios from 'axios'
 import {body, validationResult} from 'express-validator'
 const app = express()
 const limiter = rateLimit({
@@ -20,6 +21,7 @@ app.post('/',[body('prompt').trim().isString().notEmpty()],async(req:express.Req
     if(!errs.isEmpty()){
         return res.status(400).json({errors:errs.array()})
     }
+    const aiResponse = await axios
 })
 app.listen(3000,()=>{
     console.log('Server is running on port 3000')
